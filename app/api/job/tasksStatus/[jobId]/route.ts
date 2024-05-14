@@ -22,11 +22,13 @@ const handlePOST = async (request: NextRequest, {params}: { params: { jobId: str
     if (baseUrl.endsWith("/")) {
       baseUrl = baseUrl.slice(0, -1);
     }
+    console.log(baseUrl);
     const fetchUrl = `${baseUrl}/${filePath}/${jobId}`;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
       controller.abort();
     }, 10 * 60 * 1000);
+    console.log(fetchUrl);
     const res = await fetch(fetchUrl, {
       method: "POST",
       headers: {
@@ -36,6 +38,7 @@ const handlePOST = async (request: NextRequest, {params}: { params: { jobId: str
       body: JSON.stringify({example_mode: jsonBody.example_mode??false})
     })
     const content = await res.json();
+    console.log(content);
     return NextResponse.json(content);
   } catch (e: any) {
     console.error(e);

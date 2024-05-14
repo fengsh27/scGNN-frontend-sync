@@ -204,12 +204,8 @@ export function SideBar(props: { className?: string }) {
               icon={<HelpIcon />}
               text={shouldNarrow ? undefined : "Demo"}
               onClick={() => {
-                if (config.dontShowMaskSplashScreen) {
                   chatStore.newSession(demoMask);
                   navigate(Path.Chat);
-                } else {
-                  navigate(Path.NewChat);
-                }
               }}
               shadow
             />

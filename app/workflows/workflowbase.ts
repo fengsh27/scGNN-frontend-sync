@@ -84,7 +84,7 @@ class scGNNWorkflowExampleItemHandler extends WorkflowItemHandler {
       wfi.data.step = 0;
     }
     this.methods.addNewMessage(
-      "\n\nYou've uploaded data files successfully, you can now view, delete or download the uploaded file in file manager."
+      "\n\nYou've uploaded data files successfully, you can now view, delete or download the uploaded file in **\"file manager\"** located above message input box."
     );
     setTimeout(() => {
       this.methods.addNewMessage(
