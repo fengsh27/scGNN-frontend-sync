@@ -33,7 +33,7 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
-  basePath: "/scgnn",
+  basePath: "/scgnn3"
 };
 
 const CorsHeaders = [
@@ -94,6 +94,6 @@ if (mode !== "export") {
   };
 }
 
-nextConfig.basePath = "/scgnn";
+nextConfig.basePath = "/scgnn3";
 
 export default nextConfig;

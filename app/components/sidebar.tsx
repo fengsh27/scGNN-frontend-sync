@@ -12,6 +12,7 @@ import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
+import HelpIcon from "../icons/help.svg";
 
 import Locale from "../locales";
 
@@ -134,6 +135,7 @@ export function SideBar(props: { className?: string }) {
   const maskStore = useMaskStore();
   const masks = maskStore.getAll();
   const mask = masks && masks.length > 0 ? masks[0] : undefined;
+  const demoMask = masks && masks.length > 1 ? masks[1] : undefined;
 
   // drag side bar
   const { onDragStart, shouldNarrow } = useDragSideBar();
@@ -198,9 +200,19 @@ export function SideBar(props: { className?: string }) {
             </Link>
           </div>
           <div className={styles["sidebar-action"]}>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
-              <IconButton icon={<GithubIcon />} shadow />
-            </a>
+            <IconButton
+              icon={<HelpIcon />}
+              text={shouldNarrow ? undefined : "Demo"}
+              onClick={() => {
+                if (config.dontShowMaskSplashScreen) {
+                  chatStore.newSession(demoMask);
+                  navigate(Path.Chat);
+                } else {
+                  navigate(Path.NewChat);
+                }
+              }}
+              shadow
+            />
           </div>
         </div>
         <div>

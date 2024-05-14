@@ -31,7 +31,7 @@ export function FileDownloadModal (
     onDownloaded: (message: string) => void
   }
 ) {
-  const chatStore = useChatStore();
+  const chatStore = useChatStore.getState();
   const session = useChatStore().currentSession();
   const jobId = session.jobId !== undefined ? (`${session.jobId}`) : undefined;
   const [jobFiles, setJobFiles] = useState<Array<JobFile>>([]);

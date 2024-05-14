@@ -148,7 +148,8 @@ export const usePromptStore = createPersistStore(
     },
 
     onRehydrateStorage(state) {
-      const PROMPT_URL = getFetchUrl("/"+SCGNN_SUBPATH, "/prompts.json") // "./prompts.json";
+      const PROMPT_URL = getFetchUrl("/"+SCGNN_SUBPATH, "/prompts.json");
+      // const PROMPT_URL = "./prompts.json";
 
       type PromptList = Array<[string, string]>;
 

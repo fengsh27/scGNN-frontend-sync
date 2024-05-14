@@ -7,6 +7,7 @@ import { prettyObject } from "@/app/utils/format";
 const serverConfig = getServerSideConfig();
 
 async function requestTaskResults(
+  req: NextRequest,
   taskId: string
 ) {
   let baseUrl = serverConfig.baseUrl ?? LOCAL_BASE_URL;
@@ -26,8 +27,13 @@ async function requestTaskResults(
   const timeoutId = setTimeout(() => {
     controller.abort();
   }, 1 * 60 * 1000);
+  const jsonObj = await req.json();
   const fetchOptions: RequestInit = {
     method: "POST",
+    headers: {
+      'Content-Type': "application/json",
+    },
+    body: JSON.stringify({example_mode: jsonObj.example_mode??false})
   };
   try {
     const res = await fetch(fetchUrl, fetchOptions);
@@ -39,16 +45,19 @@ async function requestTaskResults(
     } else {
       return NextResponse.json({error: "Unkonwn error occurred in server."})
     }
-  } finally {
+  } catch (e: any) {
+    console.error(e);
+  }
+  finally {
     clearTimeout(timeoutId);
   }
 }
 
-async function handle(_request: NextRequest, { params }: { params: { taskId: string } }) {
+async function handle(request: NextRequest, { params }: { params: { taskId: string } }) {
   try {
     const taskId = params.taskId;
     
-    const res = await requestTaskResults(taskId);
+    const res = await requestTaskResults(request, taskId);
     return res;
   } catch (e: any) {
     console.error(e);

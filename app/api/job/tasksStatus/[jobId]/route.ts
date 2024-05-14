@@ -14,7 +14,7 @@ const handlePOST = async (request: NextRequest, {params}: { params: { jobId: str
     }
     const filePath = scGNNPath.JobTasksStatus;
     let baseUrl = serverConfig.baseUrl ?? LOCAL_BASE_URL;
-
+    const jsonBody = await request.json();
     if (!baseUrl.startsWith("http")) {
       baseUrl = `http://${baseUrl}`;
     }
@@ -29,7 +29,11 @@ const handlePOST = async (request: NextRequest, {params}: { params: { jobId: str
     }, 10 * 60 * 1000);
     const res = await fetch(fetchUrl, {
       method: "POST",
-      signal: controller.signal
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      signal: controller.signal,
+      body: JSON.stringify({example_mode: jsonBody.example_mode??false})
     })
     const content = await res.json();
     return NextResponse.json(content);
