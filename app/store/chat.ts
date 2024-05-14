@@ -21,8 +21,8 @@ import { estimateTokenLength } from "../utils/token";
 import { createPersistStore } from "../utils/store";
 import { WorkflowItem, WorkflowItemTypeEnum, WorkflowManager } from "../workflows/workflowbase";
 import { requestJobId, requestTaskResults, requestUploadFile } from "../components/data-provider/dataaccessor";
-import { Session } from "inspector";
 import { isImageFile } from "../utils/file";
+import { useAccessStore } from "./access";
 
 const generateUniqId = () => uuidv4();
 const workflowMgr = new WorkflowManager({
@@ -183,6 +183,7 @@ export const useChatStore = createPersistStore(
       });
     }
     function checkTasksResult() {
+      const accessStore = useAccessStore.getState();
       const curSession = get().currentSession();
       if (!curSession.taskIds) {
         return;
@@ -198,7 +199,7 @@ export const useChatStore = createPersistStore(
           // Result for this task has been requested
           return;
         }
-        requestTaskResults(taskId).then((res: any) => {
+        requestTaskResults(taskId, accessStore.subPath??"").then((res: any) => {
           if (!res.results || res.results.length === 0) {
             return;
           }
