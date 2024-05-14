@@ -23,7 +23,9 @@ export const DEFAULT_TASKLIST_STATE = {
 }
 export type TaskListState = typeof DEFAULT_TASKLIST_STATE;
 
-
+const is_demo_mode = (mask_name: string): boolean => {
+  return mask_name === "scGNN helper";
+}
 export const useTaskListStore = createPersistStore(
   { ...DEFAULT_TASKLIST_STATE },
   (set, get) => {
@@ -31,10 +33,11 @@ export const useTaskListStore = createPersistStore(
     function getJobTasksStatus() {
       const chatStore = useChatStore.getState();
       const session = chatStore.currentSession();
-      if (session.jobId === undefined) {
+      const jobId = session.jobId;
+      if (jobId === undefined) {
         return;
       }
-      chatStore.requestJobTaskStatus().then((res: any) => {
+      chatStore.requestJobTasksStatus().then((res: any) => {
         if (!res.results) {
           return;
         }
@@ -42,7 +45,7 @@ export const useTaskListStore = createPersistStore(
           set({taskList: {tasks: []}});
           return;
         }
-        const taskIds = session.taskIds;
+        const taskIds = useChatStore.getState().currentSession().taskIds;
         const resTaskList = res.results.filter((item:any) => (item[0].toString() in taskIds));
         set({taskList: {tasks: resTaskList.map((item: any) => (
           {taskId: item[0].toString(), jobId: item[1].toString(), status: item[2]}

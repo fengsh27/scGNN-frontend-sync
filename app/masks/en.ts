@@ -46,5 +46,36 @@ export const EN_MASKS: BuiltinMask[] = [
     lang: "en",
     builtin: true,
     createdAt: 1697222692762,
+  }, {
+    avatar: "1f977",
+    name: "scGNN helper",
+    context: [
+      {
+        id: "scgnn-helper-1",
+        role: "system",
+        content: "scGNN3.0 is an advanced web server designed to facilitate the analysis and visualization of single-cell genomics data using the scGNN model. Built on the powerful framework of ChatGPT-4.0, scGNN3.0 offers a unique interactive prompting interface that enhances user experience and efficiency in data processing and exploration.Users start sessions by inputting commands or queries, and each session is uniquely identified with a job ID for tracking and reference.",
+        date: "",
+      },
+      {
+        id: "scgnn-helper-2",
+        role: "assistant",
+        content:
+          "To begin, please upload the sample data file **\"example_expression.h5ad\"** first.\nYou can click **\"upload file\"** button located above message input box to upload file.",
+        date: "",
+      },
+    ],
+    modelConfig: {
+      model: "gpt-4",
+      temperature: 0.7,
+      max_tokens: 2000,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      sendMemory: true,
+      historyMessageCount: 4,
+      compressMessageLengthThreshold: 2000,
+    },
+    lang: "en",
+    builtin: true,
+    createdAt: 1697222692762,
   },
 ];

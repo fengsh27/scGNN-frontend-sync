@@ -8,6 +8,7 @@ services:
       - 3000:3000
     environment:
       - BASE_URL=http://scgnn-server:5001
+      - SUBPATH=/scgnn3
     volumes:
       - ./logs:/app/logs
       - ./tmp:/tmp

@@ -50,7 +50,7 @@ async function handle(
     // return NextResponse.json(authResult, {
     //   status: 401,
     // });
-    console.log("Invalide OpenAI Key!");
+    console.log("Invalid OpenAI Key!");
   }
 
   try {

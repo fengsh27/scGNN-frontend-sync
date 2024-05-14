@@ -9,6 +9,7 @@ const serverConfig = getServerSideConfig();
 async function requestTaskResultFile(
   taskId: string,
   filename: string,
+  example_mode: boolean,
 ) {
   let baseUrl = serverConfig.baseUrl ?? LOCAL_BASE_URL;
   const dt = new Date();
@@ -22,7 +23,7 @@ async function requestTaskResultFile(
     baseUrl = baseUrl.slice(0, -1);
   }
   const path = scGNNPath.ResultFile;
-  const fetchUrl = `${baseUrl}/${path}/${taskId}/${filename}`;
+  const fetchUrl = `${baseUrl}/${path}/${taskId}/${filename}?example_mode=${example_mode}`;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => {
     controller.abort();
@@ -46,12 +47,17 @@ async function requestTaskResultFile(
   }
 }
 
-export async function handleGetFile(_request: NextRequest, { params }: { params: {path: any} }) {
+export async function handleGetFile(request: NextRequest, { params }: { params: {path: any} }) {
   try {
     const taskId = params.path[0];
     const filename = params.path[1];
+
+    const url = new URL(request.url)
+
+  const example_mode = url.searchParams.get("example_mode") === "true";
+    
     console.log(`${taskId} - ${filename}`)
-    const res = await requestTaskResultFile(taskId, filename);    
+    const res = await requestTaskResultFile(taskId, filename, example_mode);    
     return res;
   } catch (e: any) {
     console.error(e);

@@ -20,9 +20,7 @@ import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { createPersistStore } from "../utils/store";
 import { WorkflowItem, WorkflowItemTypeEnum, WorkflowManager } from "../workflows/workflowbase";
-import { requestJobId, requestTaskResults, requestUploadFile } from "../components/data-provider/dataaccessor";
 import { isImageFile } from "../utils/file";
-import { useAccessStore } from "./access";
 
 const generateUniqId = () => uuidv4();
 const workflowMgr = new WorkflowManager({
@@ -176,14 +174,13 @@ export const useChatStore = createPersistStore(
       result.forEach((r: string) => {
         if (isImageFile(r) && taskId in get().currentSession().taskIds) {
           // get().addNewMessage(`${r} <br /> ![result image](/api/task/results/image/${taskId}/${r})`, "assistant", false);
-          get().addNewMessage(`task ${taskId} result: ${r} <br /> <img src="/api/task/results/image/${taskId}/${r}" alt="Result Image" width="400" />`, 
+          get().addNewMessage(`task ${taskId} result: ${r} <br /> <img src="/scgnn3/api/task/results/image/${taskId}/${r}" alt="Result Image" width="400" />`, 
             "assistant", false
           );
         }
       });
     }
     function checkTasksResult() {
-      const accessStore = useAccessStore.getState();
       const curSession = get().currentSession();
       if (!curSession.taskIds) {
         return;
@@ -199,7 +196,7 @@ export const useChatStore = createPersistStore(
           // Result for this task has been requested
           return;
         }
-        requestTaskResults(taskId, accessStore.subPath??"").then((res: any) => {
+        workflowMgr.requestTaskResults(curSession, taskId).then((res: any) => {
           if (!res.results || res.results.length === 0) {
             return;
           }
@@ -433,6 +430,7 @@ export const useChatStore = createPersistStore(
         }
 
         workflowMgr.chat(
+          session,
           sendMessages,
           { ...modelConfig, stream: true},
           (message) => { // onUpdate
@@ -448,7 +446,7 @@ export const useChatStore = createPersistStore(
             botMessage.streaming = false;
             botMessage.taskId = taskId;
             if (message) {
-              botMessage.content = message;
+              botMessage.content = taskId !== undefined && taskId.length > 0? `task id: ${taskId}\n` + message : message;
               get().onNewMessage(botMessage);
             }
             if (taskId !== undefined && taskId.length > 0) {
@@ -775,7 +773,7 @@ export const useChatStore = createPersistStore(
         const session = get().currentSession();
         return await workflowMgr.requestTaskResults(session, taskId);
       },
-      async requestJobTaskStatus() {
+      async requestJobTasksStatus() {
         const session = get().currentSession();
         return await workflowMgr.requestJobTasksStatus(session);
       },
