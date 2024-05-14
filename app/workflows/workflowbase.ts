@@ -102,8 +102,9 @@ class scGNNWorkflowExampleItemHandler extends WorkflowItemHandler {
     }
     setTimeout(() => {
       this.methods.addNewMessage(`Task ${taskId} has been submitted. After it is done, you can input\
-       "I want to draw a headtmap figure by using this task ${taskId} result files" to show result image. \n\nOr \
-        input "I want to change a colormap to Reds and draw this heatmap figure by using this task ${taskId} result files."`);
+       "I want to draw a heatmap figure by using this task ${taskId} result files" to show result image. \n\nOr \
+        input "I want to change a colormap to Reds and draw this heatmap figure by using this task ${taskId} result files.\
+        \n\n Or You can manage the result files in **\"file manager\"** located above mesage input box."`);
     }, 2000);
   }
   

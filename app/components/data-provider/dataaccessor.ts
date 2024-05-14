@@ -175,12 +175,15 @@ export const requestJobTasksStatus = async (jobId: string, demoMode: boolean, su
     fetchPath += "/";
   }
   fetchPath += jobId;
+  const theJsonObj = JSON.stringify({example_mode: demoMode});
+  console.log(theJsonObj);
+
   const response = await fetch (fetchPath, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({example_mode: demoMode})
+    body: theJsonObj,
   });
   if (response.ok) {
     const jsonObj = await response.json();
