@@ -56,6 +56,8 @@ export class ChatGPTApi implements LLMApi {
     }
     if (!baseUrl.startsWith("http") && !baseUrl.startsWith(ApiPath.OpenAI)) {
       baseUrl = "https://" + baseUrl;
+    } else {
+      baseUrl = accessStore.subPath + baseUrl;
     }
 
     if (isAzure) {
