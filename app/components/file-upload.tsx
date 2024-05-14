@@ -11,10 +11,10 @@ export function FileUploadModal(
     onUploaded: (message: string) => void
   }
 ) {
-  const chatStore = useChatStore();
+  const chatState = useChatStore.getState();
   async function onUpload(file: File, dataType: string, done: () => void) {
     try {
-      const res = await chatStore.requestUploadFile(file, dataType);
+      const res = await chatState.requestUploadFile(file, dataType);
       const jsonBody = await res.json();
       onUploaded(jsonBody.message??"");
     } catch (e: any) {

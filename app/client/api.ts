@@ -36,6 +36,7 @@ export interface ChatOptions {
   onFinish: (message: string, taskId?: string) => void;
   onError?: (err: Error) => void;
   onController?: (controller: AbortController) => void;
+  demoMode?: boolean;
 }
 
 export interface LLMUsage {

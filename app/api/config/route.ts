@@ -16,7 +16,6 @@ const DANGER_CONFIG = {
   subPath: serverConfig.subPath,
 };
 
-
 declare global {
   type DangerConfig = typeof DANGER_CONFIG;
 }
