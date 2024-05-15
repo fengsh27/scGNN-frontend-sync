@@ -1,5 +1,5 @@
 import { createPersistStore } from "../utils/store";
-import { StoreKey } from "../constant";
+import { HELPER_MASK_NAME, StoreKey } from "../constant";
 
 import { useChatStore } from "./chat";
 
@@ -24,7 +24,7 @@ export const DEFAULT_TASKLIST_STATE = {
 export type TaskListState = typeof DEFAULT_TASKLIST_STATE;
 
 const is_demo_mode = (mask_name: string): boolean => {
-  return mask_name === "scGNN helper";
+  return mask_name === HELPER_MASK_NAME;
 }
 export const useTaskListStore = createPersistStore(
   { ...DEFAULT_TASKLIST_STATE },

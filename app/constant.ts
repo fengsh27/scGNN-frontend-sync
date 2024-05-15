@@ -28,6 +28,7 @@ export enum ApiPath {
   Cors = "/api/cors",
   OpenAI = "/api/openai",
   JobFile = "/api/job/file",
+  SampleDataFile = "/api/sample/data",
   TaskResultFile= "/api/task/results/file",
   TaskResultImage = "/api/task/results/image",
   JobFiles = "/api/job/files",
@@ -315,4 +316,8 @@ export const scGNNPath = {
   ResultFile: "v1/result_file",
   AllDocuments: "v1/rag/alldocuments",
   Document: "v1/rag/document",
+  SampleData: "v1/sampledata",
 }
+
+export const HELPER_MASK_NAME = "scGNN helper";
+export const SAMPLE_DATA_FILENAME = "example_expression.h5ad";

@@ -1,10 +1,10 @@
 import { ClientApi, LLMConfig, MessageRole } from "../client/api";
-import { requestDownloadJobFile, requestDownloadTaskResultFile, requestJobFiles, requestJobId, requestJobTasksStatus, requestLogs, requestRemoveJobFile, requestTaskResults, requestUploadFile } from "../components/data-provider/dataaccessor";
-import { ModelProvider } from "../constant";
+import { requestDownloadJobFile, requestDownloadSampleDataFile, requestDownloadTaskResultFile, requestJobFiles, requestJobId, requestJobTasksStatus, requestLogs, requestRemoveJobFile, requestTaskResults, requestUploadFile } from "../components/data-provider/dataaccessor";
+import { HELPER_MASK_NAME, ModelProvider } from "../constant";
 import { ChatMessage, ChatSession, useAccessStore } from "../store";
 
 const is_demo_mode = (mask_name: string): boolean => {
-  return mask_name === "scGNN helper";
+  return mask_name === HELPER_MASK_NAME;
 }
 
 export enum WorkflowItemTypeEnum {
@@ -100,11 +100,11 @@ class scGNNWorkflowExampleItemHandler extends WorkflowItemHandler {
     if (taskId === undefined  || taskId.length === 0) {
       return
     }
-    setTimeout(() => {
-      this.methods.addNewMessage(`Task ${taskId} has been submitted. After it is done, you can input\
-       "I want to draw a heatmap figure by using this task ${taskId} result files" to show result image. \n\nOr \
-        input "I want to change a colormap to Reds and draw this heatmap figure by using this task ${taskId} result files.\
-        \n\n Or You can manage the result files in **\"file manager\"** located above mesage input box."`);
+    setTimeout(() => {      
+      this.methods.addNewMessage(`Task ${taskId} has been successfully submitted. Once it is completed, you can enter the following commands to view the result image:\n\
+      "I want to draw a heatmap figure using the result files from Task 242."\n\
+      "I want to change the colormap to Reds and create a heatmap figure with the Task 242 result files."\n\
+      Alternatively, you can organize the result files using the **"file manager"** situated above the message input box.`);
     }, 2000);
   }
   
@@ -228,5 +228,9 @@ export class WorkflowManager {
   async requestJobTasksStatus(session: ChatSession) {
     const accessStore = useAccessStore.getState();
     return await requestJobTasksStatus(session.jobId??"", is_demo_mode(session.mask.name), accessStore.subPath);
+  }
+  async requestDownloadSampleDataFile() {
+    const accessStore = useAccessStore.getState();
+    return await requestDownloadSampleDataFile(accessStore.subPath);
   }
 }
