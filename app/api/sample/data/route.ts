@@ -19,9 +19,10 @@ function get_baseurl(): string {
 }
 
 async function handleGet(request: NextRequest) {
+  const example_mode = request.nextUrl.searchParams.get("example_mode") ?? false;
   const baseUrl = get_baseurl();
   const path = scGNNPath.SampleData;
-  const fetchUrl = `${baseUrl}/${path}`;
+  const fetchUrl = example_mode ? `${baseUrl}/${path}?example_mode=${example_mode}` : `${baseUrl}/${path}`;
   try {
     const res = await fetch(fetchUrl, {
       method: "GET",

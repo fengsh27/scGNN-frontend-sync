@@ -1151,15 +1151,14 @@ function _Chat() {
           </div>
         </div>
         <div className="window-actions">
-          {chatStore.isCurrentSessionHelperSession() && (<div className="window-action-button">
+          <div className="window-action-button">
             <IconButton
               icon={<DownloadIcon />}
               bordered
               title="Download Sample File"
               onClick={() => {chatStore.requestDownloadSampleDataFile()}}
             />
-            </div>
-          )}
+          </div>
           {!isMobileScreen && (
             <div className="window-action-button">
               <IconButton

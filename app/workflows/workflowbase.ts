@@ -229,8 +229,8 @@ export class WorkflowManager {
     const accessStore = useAccessStore.getState();
     return await requestJobTasksStatus(session.jobId??"", is_demo_mode(session.mask.name), accessStore.subPath);
   }
-  async requestDownloadSampleDataFile() {
+  async requestDownloadSampleDataFile(session: ChatSession) {
     const accessStore = useAccessStore.getState();
-    return await requestDownloadSampleDataFile(accessStore.subPath);
+    return await requestDownloadSampleDataFile(is_demo_mode(session.mask.name), accessStore.subPath);
   }
 }

@@ -782,7 +782,8 @@ export const useChatStore = createPersistStore(
         return await workflowMgr.requestJobTasksStatus(session);
       },
       async requestDownloadSampleDataFile() {
-        return await workflowMgr.requestDownloadSampleDataFile();
+        const session = get().currentSession();
+        return await workflowMgr.requestDownloadSampleDataFile(session);
       }
       
     };

@@ -87,8 +87,10 @@ export const requestDownloadJobFile = async (
   }
 }
 
-export const requestDownloadSampleDataFile = async (subPath: string) => {
-  const fetchUrl = getFetchUrl(subPath, ApiPath.SampleDataFile);
+export const requestDownloadSampleDataFile = async (demoMode: boolean, subPath: string) => {
+  const fetchUrl = getFetchUrl(subPath, ApiPath.SampleDataFile + '?' + new URLSearchParams({
+    example_mode: demoMode.toString(),
+  }));
   try {
     const res = await fetch(fetchUrl, {method: "GET"});
     const data = await res.blob();
