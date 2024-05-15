@@ -9,6 +9,7 @@ import {
   DEFAULT_INPUT_TEMPLATE,
   DEFAULT_MODELS,
   DEFAULT_SYSTEM_TEMPLATE,
+  HELPER_MASK_NAME,
   KnowledgeCutOffDate,
   ModelProvider,
   StoreKey,
@@ -235,7 +236,10 @@ export const useChatStore = createPersistStore(
           currentSessionIndex: index,
         });
       },
-
+      isCurrentSessionHelperSession() {
+        const session = get().currentSession();
+        return session.mask && session.mask.name === HELPER_MASK_NAME;
+      },
       moveSession(from: number, to: number) {
         set((state) => {
           const { sessions, currentSessionIndex: oldIndex } = state;
@@ -263,7 +267,7 @@ export const useChatStore = createPersistStore(
 
       newSession(mask?: Mask) {
         let session: any = undefined;
-        if (mask && mask.name === "scGNN helper") {
+        if (mask && mask.name === HELPER_MASK_NAME) {
           session = createEmptySession(WorkflowItemTypeEnum.scGNNWorkflowExampleItem);
         } else {
           session = createEmptySession(WorkflowItemTypeEnum.scGNNWorkflowItem);
@@ -777,7 +781,10 @@ export const useChatStore = createPersistStore(
         const session = get().currentSession();
         return await workflowMgr.requestJobTasksStatus(session);
       },
-
+      async requestDownloadSampleDataFile() {
+        const session = get().currentSession();
+        return await workflowMgr.requestDownloadSampleDataFile(session);
+      }
       
     };
 

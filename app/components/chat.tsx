@@ -1151,6 +1151,14 @@ function _Chat() {
           </div>
         </div>
         <div className="window-actions">
+          <div className="window-action-button">
+            <IconButton
+              icon={<DownloadIcon />}
+              bordered
+              title="Download Sample File"
+              onClick={() => {chatStore.requestDownloadSampleDataFile()}}
+            />
+          </div>
           {!isMobileScreen && (
             <div className="window-action-button">
               <IconButton

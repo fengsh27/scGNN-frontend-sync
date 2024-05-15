@@ -1,4 +1,4 @@
-import { ApiPath } from "@/app/constant";
+import { ApiPath, SAMPLE_DATA_FILENAME } from "@/app/constant";
 import { getFetchUrl } from "@/app/utils/utils";
 
 function get_json_header(): Record<string, string> {
@@ -86,6 +86,25 @@ export const requestDownloadJobFile = async (
     console.error(e);
   }
 }
+
+export const requestDownloadSampleDataFile = async (demoMode: boolean, subPath: string) => {
+  const fetchUrl = getFetchUrl(subPath, ApiPath.SampleDataFile + '?' + new URLSearchParams({
+    example_mode: demoMode.toString(),
+  }));
+  try {
+    const res = await fetch(fetchUrl, {method: "GET"});
+    const data = await res.blob();
+    const url = window.URL.createObjectURL(new Blob([data]));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = SAMPLE_DATA_FILENAME;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  } catch (e: any) {
+    console.error(e);
+  }
+};
 
 export const requestDownloadTaskResultFile = async (
   taskId: string, filename: string, demoMode: boolean, subPath: string,

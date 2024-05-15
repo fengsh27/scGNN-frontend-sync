@@ -14,7 +14,7 @@ const handlePOST = async (request: NextRequest, {params}: { params: { jobId: str
     }
     const filePath = scGNNPath.JobTasksStatus;
     let baseUrl = serverConfig.baseUrl ?? LOCAL_BASE_URL;
-    console.log("parse json");
+    console.log(`parse json ${jobId}`);
     const jsonBody = await request.json();
     console.log(jsonBody);
     if (!baseUrl.startsWith("http")) {
