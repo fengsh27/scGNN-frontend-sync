@@ -33,7 +33,7 @@ export function FileUploadModal(
           accept={{ 
             "application/h5ad": [".h5ad"], 
             "application/Rdata": [".Rdata"], 
-            "text/csv": ["text/csv"], 
+            "text/csv": [".csv"], 
             "text/mtx": [".mtx"]
           }}
           onUpload={onUpload}
