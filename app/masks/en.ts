@@ -60,7 +60,7 @@ export const EN_MASKS: BuiltinMask[] = [
         id: "scgnn-helper-2",
         role: "assistant",
         content:
-          "To begin, please upload the sample data file **\"example_expression.h5ad\"** first.\nYou can click **\"upload file\"** button located above message input box to upload file.",
+          "To get started, please upload the sample data file **\"example_expression.h5ad\"** first. You can access the sample file by clicking the **\"Download Sample File\"** button. To upload the file, simply find and select the **\"upload file\"** button positioned above the message input box.",
         date: "",
       },
     ],

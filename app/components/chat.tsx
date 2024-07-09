@@ -1156,6 +1156,7 @@ function _Chat() {
               icon={<DownloadIcon />}
               bordered
               title="Download Sample File"
+              text="Download Sample File"
               onClick={() => {chatStore.requestDownloadSampleDataFile()}}
             />
           </div>
