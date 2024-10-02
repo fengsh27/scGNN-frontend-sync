@@ -40,6 +40,7 @@ export const DEFAULT_CONFIG = {
   disablePromptHint: false,
 
   dontShowMaskSplashScreen: true, // dont show splash screen when create chat
+  dontShowWelcomeSplashScreen: false,
   hideBuiltinMasks: false, // dont add builtin masks
 
   customModels: "",
@@ -144,6 +145,7 @@ export const useAppConfig = createPersistStore(
         state.modelConfig.top_p = 1;
         state.modelConfig.template = DEFAULT_INPUT_TEMPLATE;
         state.dontShowMaskSplashScreen = true;
+        state.dontShowWelcomeSplashScreen = false;
         state.hideBuiltinMasks = false;
       }
 

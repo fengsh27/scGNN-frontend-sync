@@ -43,6 +43,9 @@ export function Loading(props: { noLogo?: boolean }) {
   );
 }
 
+const Welcome = dynamic(async () => (await import("./welcome")).Welcome, {
+  loading: () => <Loading noLogo />,
+});
 const Settings = dynamic(async () => (await import("./settings")).Settings, {
   loading: () => <Loading noLogo />,
 });
@@ -139,6 +142,13 @@ function Screen({user}: {user: string | null}) {
     loadAsyncGoogleFont();
   }, []);
 
+  function getHomeScreen() {
+    if (config.dontShowWelcomeSplashScreen) {
+      return (<Chat />)
+    }
+    return <Welcome />;
+  }
+
   return (
     <div
       className={
@@ -158,11 +168,12 @@ function Screen({user}: {user: string | null}) {
 
           <div className={styles["window-content"]} id={SlotID.AppBody}>
             <Routes>
-              <Route path={Path.Home} element={<Chat />} />
+              <Route path={Path.Home} element={getHomeScreen()} />
               <Route path={Path.NewChat} element={<NewChat />} />
               <Route path={Path.Masks} element={<MaskPage />} />
               <Route path={Path.Chat} element={<Chat />} />
               <Route path={Path.Settings} element={<Settings />} />
+              <Route path={Path.Welcome} element={<Welcome />} />
             </Routes>
           </div>
 
