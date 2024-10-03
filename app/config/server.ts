@@ -11,7 +11,6 @@ declare global {
 
       BASE_URL?: string;
       OPENAI_ORG_ID?: string; // openai only
-      subPath: string;
 
       VERCEL?: string;
       BUILD_MODE?: "standalone" | "export";
@@ -78,7 +77,6 @@ export const getServerSideConfig = () => {
 
   return {
     baseUrl: process.env.BASE_URL,
-    subPath: process.env.SUBPATH??"/scgnn3",
     apiKey,
     openaiOrgId: process.env.OPENAI_ORG_ID,
 

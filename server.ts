@@ -17,11 +17,7 @@ app.prepare().then(() => {
       const parsedUrl = parse(req.url, true)
       const { pathname, query } = parsedUrl
 
-      if (pathname === '/scgnn3') {
-        await app.render(req, res, '/scgnn3', query)
-      } else {
-        await handle(req, res, parsedUrl)
-      }
+      await handle(req, res, parsedUrl)
     } catch (err) {
       console.error('Error occurred handling', req.url, err)
       res.statusCode = 500

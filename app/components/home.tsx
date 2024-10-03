@@ -203,7 +203,7 @@ function runIdleJob(idleJobs: () => void) {
   }
 }
 
-export function Home({subPath}: {subPath: string}) {
+export function Home() {
   useSwitchTheme();
   useLoadData();
   useHtmlLang();
@@ -222,7 +222,7 @@ export function Home({subPath}: {subPath: string}) {
 
   useEffect(() => {
     console.log("[Config] got config from build time", getClientConfig());
-    useAccessStore.getState().fetch(subPath);
+    useAccessStore.getState().fetch();
 
     runIdleJob(idleJobs);
   }, []);

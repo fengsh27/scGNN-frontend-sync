@@ -82,10 +82,10 @@ export const useAccessStore = createPersistStore(
         (this.enabledAccessControl() && ensure(get(), ["accessCode"]))
       );
     },
-    fetch(subPath?: string) {
+    fetch() {
       if (fetchState > 0 || getClientConfig()?.buildMode === "export") return;
       fetchState = 1;
-      const url = getFetchUrl(subPath??"", "/api/config");
+      const url = getFetchUrl("", "/api/config");
       fetch(url, {
         method: "post",
         body: null,

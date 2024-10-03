@@ -34,7 +34,6 @@ const nextConfig = {
     forceSwcTransforms: true,
   },
 
-  basePath: "/scgnn3"
 };
 
 const CorsHeaders = [
@@ -95,6 +94,5 @@ if (mode !== "export") {
   };
 }
 
-nextConfig.basePath = "/scgnn3";
 
 export default nextConfig;
