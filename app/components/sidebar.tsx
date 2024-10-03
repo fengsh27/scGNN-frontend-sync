@@ -17,7 +17,7 @@ import AboutIcon from "../icons/about.svg";
 
 import Locale from "../locales";
 
-import { useAppConfig, useChatStore } from "../store";
+import { useAccessStore, useAppConfig, useChatStore } from "../store";
 import { useMaskStore } from "../store/mask";
 
 import {
@@ -134,6 +134,7 @@ function useDragSideBar() {
 export function SideBar(props: { className?: string }) {
   const chatStore = useChatStore();
   const maskStore = useMaskStore();
+  const accessStore = useAccessStore();
   const masks = maskStore.getAll();
   const mask = masks && masks.length > 0 ? masks[0] : undefined;
   const demoMask = masks && masks.length > 1 ? masks[1] : undefined;
@@ -177,7 +178,7 @@ export function SideBar(props: { className?: string }) {
           text={shouldNarrow ? undefined : Locale.Welcome.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
-            navigate(Path.Welcome, { state: { fromHome: true } });
+            accessStore.setTourStart(true);
           }}
           shadow
         />
@@ -223,7 +224,7 @@ export function SideBar(props: { className?: string }) {
             />
           </div>
         </div>
-        <div>
+        <div id="new-conversation">
           <IconButton
             icon={<AddIcon />}
             text={shouldNarrow ? undefined : Locale.Home.NewChat}

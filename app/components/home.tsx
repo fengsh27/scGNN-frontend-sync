@@ -43,9 +43,6 @@ export function Loading(props: { noLogo?: boolean }) {
   );
 }
 
-const Welcome = dynamic(async () => (await import("./welcome")).Welcome, {
-  loading: () => <Loading noLogo />,
-});
 const Settings = dynamic(async () => (await import("./settings")).Settings, {
   loading: () => <Loading noLogo />,
 });
@@ -143,10 +140,7 @@ function Screen({user}: {user: string | null}) {
   }, []);
 
   function getHomeScreen() {
-    if (config.dontShowWelcomeSplashScreen) {
-      return (<Chat />)
-    }
-    return <Welcome />;
+    return (<Chat />);
   }
 
   return (
@@ -173,7 +167,6 @@ function Screen({user}: {user: string | null}) {
               <Route path={Path.Masks} element={<MaskPage />} />
               <Route path={Path.Chat} element={<Chat />} />
               <Route path={Path.Settings} element={<Settings />} />
-              <Route path={Path.Welcome} element={<Welcome />} />
             </Routes>
           </div>
 

@@ -46,6 +46,7 @@ const DEFAULT_ACCESS_STATE = {
   disableFastLink: false,
   customModels: "",
   subPath: "",
+  startTour: false,
 };
 
 export const useAccessStore = createPersistStore(
@@ -103,6 +104,12 @@ export const useAccessStore = createPersistStore(
         .finally(() => {
           fetchState = 2;
         });
+    },
+    isTourStarted() {
+      return get().startTour;
+    },
+    setTourStart(v: boolean) {
+      set({startTour: v});
     },
   }),
   {
