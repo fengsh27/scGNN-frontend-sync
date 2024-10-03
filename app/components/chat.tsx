@@ -105,6 +105,9 @@ const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
 const FileUpload = dynamic(async () => (await import("./file-upload")).FileUploadModal, {
   loading: () => <LoadingIcon />,
 })
+const TourGuide = dynamic(async () => (await import("./tour-guide")).TourGuide, {
+  loading: () => <LoadingIcon />,
+})
 
 export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
@@ -491,36 +494,6 @@ export function ChatActions(props: {
       )}
 
       <ChatAction
-        onClick={nextTheme}
-        text={Locale.Chat.InputActions.Theme[theme]}
-        icon={
-          <>
-            {theme === Theme.Auto ? (
-              <AutoIcon />
-            ) : theme === Theme.Light ? (
-              <LightIcon />
-            ) : theme === Theme.Dark ? (
-              <DarkIcon />
-            ) : null}
-          </>
-        }
-      />
-
-      <ChatAction
-        onClick={props.showPromptHints}
-        text={Locale.Chat.InputActions.Prompt}
-        icon={<PromptIcon />}
-      />
-
-      <ChatAction
-        onClick={() => {
-          navigate(Path.Masks);
-        }}
-        text={Locale.Chat.InputActions.Masks}
-        icon={<MaskIcon />}
-      />
-
-      <ChatAction
         text={Locale.Chat.InputActions.Clear}
         icon={<BreakIcon />}
         onClick={() => {
@@ -535,39 +508,14 @@ export function ChatActions(props: {
         }}
       />
 
-      <ChatAction
-        onClick={() => setShowModelSelector(true)}
-        text={currentModel}
-        icon={<RobotIcon />}
-      />
-
-      {showModelSelector && (
-        <Selector
-          defaultSelectedValue={currentModel}
-          items={models.map((m) => ({
-            title: m.displayName,
-            value: m.name,
-          }))}
-          onClose={() => setShowModelSelector(false)}
-          onSelection={(s) => {
-            if (s.length === 0) return;
-            chatStore.updateCurrentSession((session) => {
-              session.mask.modelConfig.model = s[0] as ModelType;
-              session.mask.syncGlobalConfig = false;
-            });
-            showToast(s[0]);
-          }}
-        />
-      )}
-
-      {(props.session.jobId !== undefined)
-      && (<ChatAction
+      {(true || props.session.jobId !== undefined)
+      && (<div id="upload-file"><ChatAction
         onClick={props.showFileUploadModal}
         text="upload file"
         icon={<UploadIcon />}
-      />)}
+      /></div>)}
       
-      {(props.session.jobId !== undefined) 
+      {(true || props.session.jobId !== undefined) 
       && (<ChatAction
         onClick={props.showFileDownloadModal}
         text="file manager"
@@ -939,7 +887,10 @@ function _Chat() {
     return session.mask.hideContext ? [] : session.mask.context.slice();
   }, [session.mask.context, session.mask.hideContext]);
   const accessStore = useAccessStore();
-
+  const startTour = accessStore.startTour;
+  const setStartTour = (v: boolean) => (accessStore.setTourStart(v));
+  const handleTourEnd = () => (accessStore.setTourStart(false));
+  
   if (
     context.length === 0 &&
     session.messages.at(0)?.content !== BOT_HELLO.content
@@ -1217,7 +1168,12 @@ function _Chat() {
           />
         )}
       </div>
-
+      {startTour && 
+      (<TourGuide 
+        start={startTour} 
+        setStartTour={setStartTour} 
+        onTourEnd={handleTourEnd} />
+      )}
       <div
         className={styles["chat-body"]}
         ref={scrollRef}
@@ -1392,7 +1348,7 @@ function _Chat() {
           }}
           session={session}
         />
-        <div className={styles["chat-input-panel-inner"]}>
+        <div id="chat-input" className={styles["chat-input-panel-inner"]}>
           <textarea
             ref={inputRef}
             className={styles["chat-input"]}

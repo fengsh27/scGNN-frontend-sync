@@ -33,6 +33,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-joyride": "^2.9.2",
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.15.0",
     "rehype-highlight": "^6.0.0",
@@ -51,7 +52,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "1.5.7",
-    "@types/node": "^20.9.0",
+    "@types/node": "^22.7.4",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.7",
     "@types/react-katex": "^3.0.0",

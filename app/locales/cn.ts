@@ -129,6 +129,12 @@ const cn = {
     DeleteToast: "已删除会话",
     Revert: "撤销",
   },
+  Welcome: {
+    Name: "Help",
+    Page: {
+      NotShow: "Not Show Again",
+    }
+  },
   Settings: {
     Title: "设置",
     SubTitle: "所有设置选项",
@@ -226,6 +232,12 @@ const cn = {
         return `${overview.chat} 次对话，${overview.message} 条消息，${overview.prompt} 条提示词，${overview.mask} 个面具`;
       },
       ImportFailed: "导入失败",
+    },
+    Welcome: {
+      Splash: {
+        Title: "Welcome Splash Screen",
+        SubTitle: "Show a welcome splash screen after loading the app",
+      },
     },
     Mask: {
       Splash: {

@@ -41,7 +41,7 @@ export function RightPanel(
           Tasks: 
         </div>
         </div>
-        <div className={styles["panel-item-body"]}>
+        <div id="task-window" className={styles["panel-item-body"]}>
         <div className={styles["logs-area"]} > 
           <Markdown
             content={taskStatusContent}
@@ -49,7 +49,7 @@ export function RightPanel(
         </div>
         </div>
       </div>
-      <div className={styles['panel-item']}>
+      <div id="logs-window" className={styles['panel-item']}>
         <div className={styles["panel-item-header"]}>
         <div className={styles["panel-item-title"]}>
           Logs: 

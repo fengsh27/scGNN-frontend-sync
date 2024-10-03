@@ -13,10 +13,11 @@ import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
 import HelpIcon from "../icons/help.svg";
+import AboutIcon from "../icons/about.svg";
 
 import Locale from "../locales";
 
-import { useAppConfig, useChatStore } from "../store";
+import { useAccessStore, useAppConfig, useChatStore } from "../store";
 import { useMaskStore } from "../store/mask";
 
 import {
@@ -133,6 +134,7 @@ function useDragSideBar() {
 export function SideBar(props: { className?: string }) {
   const chatStore = useChatStore();
   const maskStore = useMaskStore();
+  const accessStore = useAccessStore();
   const masks = maskStore.getAll();
   const mask = masks && masks.length > 0 ? masks[0] : undefined;
   const demoMask = masks && masks.length > 1 ? masks[1] : undefined;
@@ -161,14 +163,25 @@ export function SideBar(props: { className?: string }) {
     >
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
-          scGNN-3.0
+          scGNN+
         </div>
         <div className={styles["sidebar-sub-title"]}>
-          Build your own AI assistant for scGNN.
+          Build your own AI assistant for scGNN+.
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
         </div>
+      </div>
+      <div className={styles["sidebar-header-bar"]}>
+        <IconButton
+          icon={<AboutIcon width={16} height={16} />}
+          text={shouldNarrow ? undefined : Locale.Welcome.Name}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => {
+            accessStore.setTourStart(true);
+          }}
+          shadow
+        />
       </div>
 
       <div
@@ -211,7 +224,7 @@ export function SideBar(props: { className?: string }) {
             />
           </div>
         </div>
-        <div>
+        <div id="new-conversation">
           <IconButton
             icon={<AddIcon />}
             text={shouldNarrow ? undefined : Locale.Home.NewChat}

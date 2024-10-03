@@ -132,6 +132,12 @@ const en: LocaleType = {
     DeleteToast: "Chat Deleted",
     Revert: "Revert",
   },
+  Welcome: {
+    Name: "Help",
+    Page: {
+      NotShow: "Not Show Again",
+    },
+  },
   Settings: {
     Title: "Settings",
     SubTitle: "All Settings",
@@ -229,6 +235,12 @@ const en: LocaleType = {
         return `${overview.chat} chats，${overview.message} messages，${overview.prompt} prompts，${overview.mask} masks`;
       },
       ImportFailed: "Failed to import from file",
+    },
+    Welcome: {
+      Splash: {
+        Title: "Welcome Splash Screen",
+        SubTitle: "Show a welcome splash screen after loading the app",
+      },
     },
     Mask: {
       Splash: {
